@@ -1,5 +1,5 @@
 /**
- * @name Server side template injection
+ * @name Cross site-scripting
  * @kind path-problem
  * @problem.serverity error
  * @precision high
@@ -9,8 +9,8 @@ import javascript
 import DataFlow
 import DataFlow::PathGraph
 
-class ServerSideTemplateInjectionConfiguration extends TaintTracking::Configuration {
-  ServerSideTemplateInjectionConfiguration() { this = "ServerSideTeplateInjctionConfiguration" }
+class XSSConfiguration extends TaintTracking::Configuration {
+  XSSConfiguration() { this = "XSSConfiguration" }
 
   // Consider remote flow data (e.q. URL parameters)
   override predicate isSource(DataFlow::Node source) { source instanceof RemoteFlowSource }
@@ -27,8 +27,6 @@ class ServerSideTemplateInjectionConfiguration extends TaintTracking::Configurat
   }
 }
 
-from
-  ServerSideTemplateInjectionConfiguration cfg, DataFlow::PathNode source, DataFlow::PathNode sink
+from XSSConfiguration cfg, DataFlow::PathNode source, DataFlow::PathNode sink
 where cfg.hasFlowPath(source, sink)
-select sink.getNode(), source, sink,
-  "Server side template injection vulnerability due to user-provided value"
+select sink.getNode(), source, sink, "XSS vulnerability due to user-provided value"
