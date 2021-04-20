@@ -114,3 +114,10 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# CodeQL database
+
+vulnerable-express
+
+# Mac
+.DS_Store
